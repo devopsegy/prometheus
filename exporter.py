@@ -21,17 +21,16 @@ class JsonCollector(object):
     # Fetch the JSON
     response = json.loads(req.content.decode())
     val = response['extraProperties']['entity']['processingtime']['count']
-
-
     # Convert requests to Metric
-
     metric = Metric('monitoring_data','Processing time','gauge')
     metric.add_sample('processingtime',value=val , labels={})
     yield metric
 
+    val_1 = response['extraProperties']['entity']['processingtime']['starttime']
     metric = Metric('monitoring_data','Average request processing time','gauge')
-    metric.add_sample('starttime',value=val , labels={})
+    metric.add_sample('starttime',value=val_1 , labels={})
     yield metric
+
 
 
 
